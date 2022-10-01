@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style>
+        * {
+            box-sizing: border-box;
+            color: whitesmoke;
+        }
+        @font-face {
+            font-family: "hindi";
+            src: url('./typing/k010.TTF');
+        }
+        @font-face {
+            font-family: 'gujrati';
+            src: url('./typing/GJAV0NTT.TTF');
+        }
+        .outer {
+            margin-left: 30%;
+            margin-top: 200px;
+            width: 40%;
+            text-align: center;
+            background-color: rgba(152, 18, 220, 0.662);
+            border-radius: 2rem;
+        }
+
+        #text {
+            width: 100%;
+            height: 30vh;
+            font-size: 30px;
+            resize: none;
+            border-radius: 2rem;
+            padding-left: 20px;
+            background: rgba(111, 0, 139, 0.498);
+            border: rgb(143, 11, 179);
+        }
+
+        #timerdiv {
+            text-align: center;
+            font-size: 60px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: bold;
+        }
+
+        #question {
+            font-size: 25px;
+            font-family: cursive;
+        }
+
+        #cXi {
+            border: 2px solid black;
+            width: 4%;
+            float: right;
+            height: 20px;
+            border-radius: 5rem;
+            border: rgba(147, 9, 211, 0.698);
+        }
+
+        body {
+            background-color: blanchedalmond;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <div>
+            <div id="timerdiv">
+            </div>
+            <div id="cXi"></div>
+        </div>
+        <div class="containerdiv">
+            <div id="question">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio magni minus ratione dolorum expedita repellendus quis animi fugit explicabo placeat tempora, labore, cupiditate facilis voluptatem, eum earum nemo reprehenderit quos?
+            </div>
+            <br>
+            <textarea name="" id="text" cols="30" rows="10" class="col-md-8"></textarea>
+        </div>
+    </div>
+    <script>
+        const API = 'https://api.quotable.io/random'
+        const quot = document.getElementById('question');
+        const answer = document.getElementById('text');
+        const colour = document.getElementById('cXi');
+        const time = document.getElementById('timerdiv');
+        let a = [];
+        let count = 0;
+        function apiGet() {
+            // (fetch(API).then(res => res.json()).then(data => quot.innerHTML = data.content))
+        }
+        function check() {
+            const str = quot.innerHTML;
+            const srt = str.trim();
+            for (let i = 0; i < srt.length; i++) {
+                quot.innerHTML+="<span class="+i+">"+str[i]+"</span>"
+                a.push(srt.charAt(i));
+            }
+        }
+
+        answer.addEventListener('input', () => {
+            const demo = answer.value
+            const ans = [];
+            for (let j = 0; j < demo.length; j++) {
+                ans.push(demo.charAt(j))
+            }
+            for (let z = 0; z < ans.length; z++) {
+                if (ans.length == 0) {
+                    colour.style.backgroundColor = 'white';
+                }
+                else if (ans[z] == a[z]) {
+                    colour.style.backgroundColor = '#03fc94';
+                }
+                else {
+                    colour.style.backgroundColor = '#fc3503';
+                }
+            }
+            if (ans.join()==a.join()) {
+                alert('done in ' + count + 'second');
+            }
+        })
+        const timeInt = setInterval(() => {
+            count++
+            time.innerHTML = count
+        }, 1000)
+        check();
+        // apiGet();
+    </script>
+</body>
+
+</html>
